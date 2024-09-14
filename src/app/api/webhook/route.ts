@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
   try {
@@ -28,7 +29,10 @@ export async function POST(req: Request) {
       const isSuccessful = body.data.attributes.status === "paid";
     }
 
-    return Response.json({ message: "Webhook received" });
+    return NextResponse.json(
+      { message: "Webhook received", body },
+      { status: 200 }
+    );
   } catch (err) {
     console.error(err);
     return Response.json({ message: "Server error" }, { status: 500 });
