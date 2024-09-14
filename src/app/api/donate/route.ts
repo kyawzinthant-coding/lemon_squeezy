@@ -20,7 +20,7 @@ interface DonationRequest {
 
 export async function POST(request: Request, res: Response) {
   const { amount }: DonationRequest = await request.json();
-  const PRODUCT_ID = "521993"; // Replace with your actual product ID
+  const PRODUCT_ID = "521993";
 
   console.log("Sending request to Lemon Squeezy API...");
   console.log("Request Headers:", headers);
@@ -47,6 +47,11 @@ export async function POST(request: Request, res: Response) {
                 user_id: "123",
               },
             },
+          },
+          product_options: {
+            redirect_url:
+              "https://eb7f-35-180-3-123.ngrok-free.app/payment-success",
+            receipt_button_text: "Go to your account",
           },
           relationships: {
             store: {

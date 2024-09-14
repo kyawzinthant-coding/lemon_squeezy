@@ -31,7 +31,7 @@ const Home = () => {
 
       const data = await response.json();
 
-      window.open(data, "_blank"); // Open the checkout URL in a new tab
+      window.open(data, "_blank");
     } catch (error) {
       console.error("Error during donation:", error);
     }
@@ -39,14 +39,8 @@ const Home = () => {
   return (
     <div>
       <h1>Donate</h1>
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(Number(e.target.value))}
-      />
-      <button onClick={handleDonate}>Donate</button>
 
-      <WebhookDataDisplay />
+      <button onClick={handleDonate}>Donate</button>
     </div>
   );
 };
