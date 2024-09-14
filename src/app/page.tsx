@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import WebhookDataDisplay from "./WebHookDataDisplay";
 
 const lsqyConfig = {
   API_KEY:
@@ -44,6 +45,8 @@ const Home = () => {
         onChange={(e) => setAmount(Number(e.target.value))}
       />
       <button onClick={handleDonate}>Donate</button>
+
+      <WebhookDataDisplay />
     </div>
   );
 };
