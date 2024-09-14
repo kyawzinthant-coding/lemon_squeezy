@@ -29,10 +29,9 @@ export async function POST(req: Request) {
       const isSuccessful = body.data.attributes.status === "paid";
 
       if (isSuccessful) {
-        // Create session token
         const sessionToken = createSessionToken(userId, body.data.attributes);
 
-        createSessionTokenCookie(sessionToken);
+        setSessionTokenCookie(sessionToken);
 
         console.log("Session Token Created:", sessionToken);
       }
@@ -56,12 +55,15 @@ const createSessionToken = (userId: string, additionalData: any) => {
   return token;
 };
 
-export function createSessionTokenCookie(token: string) {
+export const setSessionTokenCookie = (token: string) => {
   const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days expiration
 
-  cookies().set("session_token", token, {
+  // Set the cookie
+  const response = NextResponse.next();
+  response.cookies.set("session_token", token, {
     expires: expiresAt,
     sameSite: "lax",
     path: "/",
   });
-}
+  return response;
+};

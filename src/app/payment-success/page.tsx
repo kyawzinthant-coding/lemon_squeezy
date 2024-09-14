@@ -16,9 +16,10 @@ const PaymentSuccess = () => {
       console.log("Response status:", response.status);
 
       if (response.ok) {
-        const { sessionToken } = await response.json();
+        const { userId } = await response.json();
+        console.log("userid", userId);
         // Store the session token in local storage or handle it as needed
-        localStorage.setItem("session_token", sessionToken);
+        localStorage.setItem("session_token", userId);
         // Redirect to the home page
         router.push("/");
       } else {

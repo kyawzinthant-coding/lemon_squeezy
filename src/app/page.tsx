@@ -40,7 +40,12 @@ const Home = () => {
     <div>
       <h1>Donate</h1>
 
-      <button onClick={handleDonate}>Donate</button>
+      <button
+        className="text-white w-[200px] h-[50px] bg-yellow-50"
+        onClick={handleDonate}
+      >
+        Donate
+      </button>
     </div>
   );
 };
