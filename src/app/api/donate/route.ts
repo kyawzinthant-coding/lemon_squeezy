@@ -8,7 +8,7 @@ const lsqyConfig = {
   URL: "https://api.lemonsqueezy.com/v1",
 };
 
-export const headers = {
+const headers = {
   Accept: "application/vnd.api+json",
   "Content-Type": "application/vnd.api+json",
   Authorization: `Bearer ${lsqyConfig.API_KEY}`,
