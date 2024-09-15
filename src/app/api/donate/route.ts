@@ -55,11 +55,12 @@ export async function POST(request: Request, res: Response) {
                 location: location,
               },
             },
+            product_options: {
+              redirect_url: "https://a417-15-236-142-18.ngrok-free.app/",
+              receipt_button_text: "Go to your account",
+            },
           },
-          product_options: {
-            redirect_url: "https://www.google.com/",
-            receipt_button_text: "Go to your account",
-          },
+
           relationships: {
             store: {
               data: {

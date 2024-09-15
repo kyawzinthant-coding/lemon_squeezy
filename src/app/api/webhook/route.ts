@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret";
 
-export async function POST(req: Request) {
+export async function POST(req: Request, res: Response) {
   try {
     const clonedReq = req.clone();
     const eventType = req.headers.get("X-Event-Name");
@@ -23,6 +23,8 @@ export async function POST(req: Request) {
       throw new Error("Invalid signature.");
     }
 
+    let session: unknown;
+
     // Logic according to event
     if (eventType === "order_created") {
       const userId = body.meta.custom_data.user_id;
@@ -31,16 +33,12 @@ export async function POST(req: Request) {
       if (isSuccessful) {
         const sessionToken = createSessionToken(userId, body.data.attributes);
 
-        setSessionTokenCookie(sessionToken);
+        session = setSessionTokenCookie(sessionToken);
 
         console.log("Session Token Created:", sessionToken);
       }
     }
-
-    return NextResponse.json(
-      { message: "Webhook received", body },
-      { status: 200 }
-    );
+    return NextResponse.redirect(new URL(`/success?token=${session}`, req.url));
   } catch (err) {
     console.error(err);
     return NextResponse.json({ message: "Server error" }, { status: 500 });
