@@ -15,14 +15,14 @@ const headers = {
 };
 
 const Home = () => {
-  const [amount, setAmount] = useState<number>();
+  const [location, setLocation] = useState<String>();
 
   const handleDonate = async () => {
     try {
       const response = await fetch("/api/donate", {
         method: "POST",
         headers: headers,
-        body: JSON.stringify({ amount }),
+        body: JSON.stringify({ location }),
       });
 
       if (!response.ok) {
@@ -39,6 +39,17 @@ const Home = () => {
   return (
     <div>
       <h1>Donate</h1>
+
+      <select
+        onChange={(e) => setLocation(e.target.value)}
+        name="location"
+        id="location"
+      >
+        <option value="">Select Location</option>
+        <option value="yangon"> Yangon</option>
+        <option value="mandalay">Mandalay </option>
+        <option value="pago">pago </option>
+      </select>
 
       <button
         className="text-white w-[200px] h-[50px] bg-yellow-50"

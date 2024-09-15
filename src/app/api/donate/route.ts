@@ -17,11 +17,11 @@ const headers = {
 };
 
 interface DonationRequest {
-  amount: number;
+  location: number;
 }
 
 export async function POST(request: Request, res: Response) {
-  const { amount }: DonationRequest = await request.json();
+  const { location }: DonationRequest = await request.json();
   const PRODUCT_ID = "521993";
 
   console.log("Sending request to Lemon Squeezy API...");
@@ -31,7 +31,6 @@ export async function POST(request: Request, res: Response) {
       type: "checkouts",
       attributes: {
         product_id: PRODUCT_ID,
-        amount: amount,
         currency: "USD",
       },
     },
@@ -44,15 +43,21 @@ export async function POST(request: Request, res: Response) {
         data: {
           type: "checkouts",
           attributes: {
+            checkout_options: {
+              embed: true,
+              dark: true,
+              logo: false,
+              button_color: "#111",
+            },
             checkout_data: {
               custom: {
-                user_id: "123",
+                userID: "123",
+                location: location,
               },
             },
           },
           product_options: {
-            redirect_url:
-              "https://eb7f-35-180-3-123.ngrok-free.app/payment-success?id=123",
+            redirect_url: "https://www.google.com/",
             receipt_button_text: "Go to your account",
           },
           relationships: {
